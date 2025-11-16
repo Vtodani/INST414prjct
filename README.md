@@ -3,7 +3,6 @@
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
 </a>
-
 Research project on correlation between tech usage (social media/screentime) and mental health
 
 ## Project Organization
@@ -13,18 +12,19 @@ Research project on correlation between tech usage (social media/screentime) and
 ├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
 ├── README.md          <- The top-level README for developers using this project.
 ├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
+│   ├── social_media_usagefnl.csv                     <- Final primary dataset
+│   └── Screentime_v_Mental_Health_Datasetf.sv        <- Final secondary dataset
+│ 
 │
 ├── docs               <- A default mkdocs project; see www.mkdocs.org for details
 │
 ├── models             <- Trained and serialized models, model predictions, or model summaries
 │
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
+├── notebooks          <- EDA and data cleaning notebooks
+|    ├── DataEDA.rmd          <- R notebook with exploratory data analysis using the primary and secondary datasets
+|    ├── Datasetcleaning.rmd  <- R notebook cleaning and filtering of original primary/secondary datasets
+|    ├── DataEDA.nb           <- html view of EDA notebook
+│   └── Datasetcleaning.nd    <- html view of cleaning/filtering notebook
 │
 ├── pyproject.toml     <- Project configuration file with package metadata for 
 │                         inst414cps and configuration for tools like black
@@ -39,23 +39,11 @@ Research project on correlation between tech usage (social media/screentime) and
 │
 ├── setup.cfg          <- Configuration file for flake8
 │
-└── inst414cps   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes inst414cps a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
+└── 
 ```
 
 --------
+Progress:
+During sprint 2 I was able to establish a broader research question which focuses on the influence of technology/social media on mental health and user habits. In addition datasets were cleaned with any necessary filtering and the initial round of exploratary data analysis focusing on the initial research question was conducted with visualizations included. The following steps will focus on relationships between variables and expanding to make use of more of the data in the datasets which will help anwser the updated research question.
+
 
