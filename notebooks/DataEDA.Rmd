@@ -1,0 +1,89 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+
+library(ggplot2)
+library(paletteer)
+require(openintro)
+require(dplyr)
+socmediadata <- read.csv('/Users/vktod/Downloads/smmh.csv')
+names(socmediadata)[2] <- "age"
+names(socmediadata)[3] <- "gender"
+names(socmediadata)[4] <- "relationship_status"
+names(socmediadata)[5] <- "occupation"
+names(socmediadata)[6] <- "organization_affiliations"
+names(socmediadata)[7] <- "social_media_use"
+names(socmediadata)[8] <- "platforms"
+names(socmediadata)[9] <- "average_daily_usage"
+names(socmediadata)[10] <- "usage_with_no_purpose_score"
+names(socmediadata)[11] <- "distraction_when_busy_score"
+names(socmediadata)[12] <- "restlessness_without_sm_score"
+names(socmediadata)[13] <- "distractability_score"
+names(socmediadata)[14] <- "worry_score"
+names(socmediadata)[15] <- "difficulty_concentrating_score"
+names(socmediadata)[16] <- "comparison_rate"
+names(socmediadata)[17] <- "compariosn_reflection"
+names(socmediadata)[18] <- "validation_need"
+names(socmediadata)[19] <- "depression_rate"
+names(socmediadata)[20] <- "activity_interest_changes"
+names(socmediadata)[21] <- "sleep_issue_rate"
+socmediadata<- socmediadata %>% select(-platforms)
+socmediadata<- socmediadata %>% select(-organization_affiliations)
+#write.csv(socmediadata, "social_media_usagefnl.csv", row.names = FALSE)
+#View(socmediadata)
+harvardstudy <- read.csv('/Users/vktod/Downloads/Screentime_v_Mental_Health_Dataset.csv')
+names(harvardstudy)[1] <- "screentime"
+names(harvardstudy)[2] <- "mental_health_treatment"
+names(harvardstudy)[3] <- "treatment_not_received"
+names(harvardstudy)[4] <- "age"
+names(harvardstudy)[5] <- "sex"
+harvardstudy<- harvardstudy %>% select(-treatment_not_received)
+harvardstudy <- harvardstudy[harvardstudy$age >=10, ]
+#View(harvardstudy)
+#summary(harvardstudy)
+#write.csv(harvardstudy, "Screentime_v_Mental_Health_Datasetf.csv", row.names = FALSE)
+summary(socmediadata)
+table(socmediadata$social_media_use)
+
+order <- c("Less than an Hour", 'Between 1 and 2 hours','Between 2 and 3 hours','Between 3 and 4 hours', 'Between 4 and 5 hours','More than 5 hours')
+socmediadata$average_daily_usage <- factor(socmediadata$average_daily_usage, levels = order)
+
+ggplot(socmediadata, aes(x = average_daily_usage, )) +
+  geom_bar(fill = "steelblue") + 
+  scale_fill_brewer(palette = "Pastel1")+
+  labs(title = "Average daily social media usage", x = "Hours", y = "Count") + geom_text(stat = "count", aes(label = ..count..), vjust = -0.5) 
+
+ggplot(socmediadata, aes(x = distraction_when_busy_score, )) +
+  geom_bar(fill = "steelblue") + 
+  scale_fill_brewer(palette = "Pastel1")+
+  labs(title = "Distractability when busy", x = "Distraction score", y = "Count") + geom_text(stat = "count", aes(label = ..count..), vjust = -0.5)
+
+ggplot(socmediadata, aes(x = depression_rate, )) +
+  geom_bar(fill = "steelblue") + 
+  scale_fill_brewer(palette = "Pastel1")+
+  labs(title = "Frequency of feeling depressed or down", x = "depression rate", y = "Count") + geom_text(stat = "count", aes(label = ..count..), vjust = -0.5) 
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
