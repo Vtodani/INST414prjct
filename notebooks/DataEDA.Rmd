@@ -1,0 +1,99 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+
+library(ggplot2)
+library(paletteer)
+require(openintro)
+require(dplyr)
+socmediadata <- read.csv('/Users/vktod/Documents/social_media_usagefnl.csv') #file path must match location of social_media_usagefnl.csv
+
+#View(socmediadata)
+harvardstudy <- read.csv('/Users/vktod/Documents/Screentime_v_Mental_Health_Datasetf.csv') #file path must match location of Screentime_v_Mental_Health_Datasetf.csv
+
+#View(harvardstudy)
+#summary(harvardstudy)
+#write.csv(harvardstudy, "Screentime_v_Mental_Health_Datasetf.csv", row.names = FALSE)
+summary(socmediadata)
+table(socmediadata$social_media_use)
+
+order <- c("Less than an Hour", 'Between 1 and 2 hours','Between 2 and 3 hours','Between 3 and 4 hours', 'Between 4 and 5 hours','More than 5 hours')
+socmediadata$average_daily_usage <- factor(socmediadata$average_daily_usage, levels = order)
+
+ggplot(socmediadata, aes(x = average_daily_usage, )) +
+  geom_bar(fill = "steelblue") + 
+  scale_fill_brewer(palette = "Pastel1")+
+  labs(title = "Average daily social media usage", x = "Hours", y = "Count") + geom_text(stat = "count", aes(label = ..count..), vjust = -0.5) 
+
+ggplot(socmediadata, aes(x = distraction_when_busy_score, )) +
+  geom_bar(fill = "steelblue") + 
+  scale_fill_brewer(palette = "Pastel1")+
+  labs(title = "Distractability when busy", x = "Distraction score", y = "Count") + geom_text(stat = "count", aes(label = ..count..), vjust = -0.5)
+
+ggplot(socmediadata, aes(x = comparison_rate, )) +
+  geom_bar(fill = "steelblue") + 
+  scale_fill_brewer(palette = "Pastel1")+
+  labs(title = "Comparison to other successful people rate", x = "comparison rate score", y = "Count") + geom_text(stat = "count", aes(label = ..count..), vjust = -0.5)
+
+ggplot(socmediadata, aes(x = depression_rate, )) +
+  geom_bar(fill = "steelblue") + 
+  scale_fill_brewer(palette = "Pastel1")+
+  labs(title = "Frequency of feeling depressed or down", x = "depression rate", y = "Count") + geom_text(stat = "count", aes(label = ..count..), vjust = -0.5) 
+
+ggplot(socmediadata, aes(x = usage_with_no_purpose_score, )) +
+  geom_bar(fill = "steelblue") + 
+  scale_fill_brewer(palette = "Pastel1")+
+  labs(title = "Social media usage with no purpose totals", x = "Social media usage with no purpose score", y = "Count") + geom_text(stat = "count", aes(label = ..count..), vjust = -0.5) 
+
+ggplot(socmediadata, aes(x = average_daily_usage, y = depression_rate)) +
+      stat_summary(geom = "bar", fun = "mean", fill = "skyblue") +
+      labs(title = "Average depression rate for hours spent on social media", x = "Average daily social media usage (Hours)", y = "Mean depression rate score ") 
+
+anovares <- aov(depression_rate ~ average_daily_usage, data = socmediadata)
+summary(anovares)
+
+
+
+ggplot(socmediadata, aes(x = average_daily_usage, y = distraction_when_busy_score)) +
+      stat_summary(geom = "bar", fun = "mean", fill = "skyblue") +
+      labs(title = "Average distraction when busy rate for hours spent on social media", x = "Average daily social media usage (Hours)", y = "Average distraction when busy score")
+anovares <- aov(distraction_when_busy_score ~ average_daily_usage, data = socmediadata)
+summary(anovares)
+
+ggplot(socmediadata, aes(x = age, y = depression_rate)) +
+      stat_summary(geom = "point", fun = "mean", fill = "skyblue") +
+      geom_smooth(method = "lm", se = FALSE, col = "blue")+
+      labs(title = "Age and reported depression rate score", x = "Age(years)", y = "Average depression rate score")
+
+orderharv <- c("Less than 1 hour", '1 hour','2 hours','3 hours', '4 or more hours')
+harvardstudy$screentime <- factor(harvardstudy$screentime, levels = orderharv)
+
+chisq.test(table(harvardstudy$screentime,harvardstudy$mental_health_treatment))
+
+ggplot(harvardstudy, aes(x = screentime, fill = mental_health_treatment)) +
+      geom_bar(position = "fill") +labs(title = "Screentime and mental health treatment", x = "Screentime", y = "Percentage")+
+      labs(fill = "Mental health treatment")
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
